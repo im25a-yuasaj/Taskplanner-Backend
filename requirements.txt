@@ -1,5 +1,5 @@
 mysql-connector-python
-fastapi
+fastapi[standard]
 uvicorn
 sqlalchemy
 python-dotenv
