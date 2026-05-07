@@ -1,10 +1,12 @@
-from pydantic import BaseModel
-from typing import Optional
+from pydantic import BaseModel, ConfigDict
 
 class UserSchema(BaseModel):
     BenutzerID: int
     BenutzerName: str
     BenutzerPWD: str
 
-    class Config:
-        from_attributes = True
+    model_config = ConfigDict(from_attributes=True)
+
+class CreateUserSchema(BaseModel):
+    BenutzerName: str
+    BenutzerPWD: str
