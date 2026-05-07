@@ -10,3 +10,4 @@ class UserSchema(BaseModel):
 class CreateUserSchema(BaseModel):
     BenutzerName: str
     BenutzerPWD: str
+
