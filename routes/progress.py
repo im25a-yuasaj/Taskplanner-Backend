@@ -13,9 +13,9 @@ def get_all_users(db: Session = Depends(get_db)):
     db_users = db.query(Progress).all()
     return db_users
 
-@router.get('/{user_id}', response_model=ProgressSchema)
-def get_user_by_id(user_id: int, db: Session = Depends(get_db)):
-    db_user = db.query(Progress).filter(Progress.BenutzerID == user_id).first()
+@router.get('/{progress_id}', response_model=ProgressSchema)
+def get_user_by_id(progress_id: int, db: Session = Depends(get_db)):
+    db_user = db.query(Progress).filter(Progress.FortschrittID == progress_id).first()
     if db_user is None:
         raise HTTPException(status_code=404, detail="User not found")
     return db_user
