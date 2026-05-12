@@ -22,8 +22,8 @@ def get_user_by_id(user_id: int, db: Session = Depends(get_db)):
 @router.post('/create-user', response_model=UserSchema)
 def create_user(user: CreateUserSchema, db: Session = Depends(get_db)):
     db_user = User(
-        UserName=user.UserName,
-        UserPWD=user.UserPWD,
+        UserName=user.BenutzerName,
+        UserPWD=user.BenutzerPWD,
     )
     db.add(db_user)
     db.commit()
