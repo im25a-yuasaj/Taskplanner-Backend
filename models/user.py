@@ -4,9 +4,9 @@ from database.database import Base
 class User(Base):
     __tablename__ = "benutzer"
 
-    UserID = Column(Integer, primary_key=True)
-    UserName = Column(String(255), unique=True)
-    UserPWD = Column(String(255))
+    BenutzerID = Column(Integer, primary_key=True)
+    BenutzerName = Column(String(255), unique=True)
+    BenutzerPWD = Column(String(255))
 
     def __repr__(self):
-        return f"<Benutzer {self.UserName}>"
+        return f"<Benutzer {self.BenutzerName}>"

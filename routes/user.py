@@ -14,7 +14,7 @@ def get_all_users(db: Session = Depends(get_db)):
 
 @router.get('/{user_id}', response_model=UserSchema)
 def get_user_by_id(user_id: int, db: Session = Depends(get_db)):
-    db_user = db.query(User).filter(User.UserID == user_id).first()
+    db_user = db.query(User).filter(User.BenutzerID == user_id).first()
     if db_user is None:
         raise HTTPException(status_code=404, detail="User not found")
     return db_user
@@ -22,8 +22,8 @@ def get_user_by_id(user_id: int, db: Session = Depends(get_db)):
 @router.post('/create-user', response_model=UserSchema)
 def create_user(user: CreateUserSchema, db: Session = Depends(get_db)):
     db_user = User(
-        UserName=user.BenutzerName,
-        UserPWD=user.BenutzerPWD,
+        BenutzerName=user.BenutzerName,
+        BenutzerPWD=user.BenutzerPWD,
     )
     db.add(db_user)
     db.commit()
@@ -32,25 +32,25 @@ def create_user(user: CreateUserSchema, db: Session = Depends(get_db)):
 
 @router.post('/update-username/{user_id}/{new_name}', response_model=UserSchema)
 def update_username(user_id: int, new_name: str, db: Session = Depends(get_db)):
-    db_user = db.query(User).filter(User.UserID == user_id).first()
+    db_user = db.query(User).filter(User.BenutzerID == user_id).first()
     if db_user is None:
         raise HTTPException(status_code=404, detail="User not found")
-    db_user.UserName = new_name
+    db_user.BenutzerName = new_name
     db.commit()
     return db_user
 
 @router.post('/update-password/{user_id}/{new_password}', response_model=UserSchema)
 def update_password(user_id: int, new_password: str, db: Session = Depends(get_db)):
-    db_user = db.query(User).filter(User.UserID == user_id).first()
+    db_user = db.query(User).filter(User.BenutzerID == user_id).first()
     if db_user is None:
         raise HTTPException(status_code=404, detail="User not found")
-    db_user.UserPWD = new_password #TODO: Identitiy validation with old PWD
+    db_user.BenutzerPWD = new_password #TODO: Identitiy validation with old PWD
     db.commit()
     return db_user
 
 @router.delete('/delete-user/{user_id}', response_model=UserSchema)
 def delete_user(user_id: int, db: Session = Depends(get_db)):
-    db_user = db.query(User).filter(User.UserID == user_id).first()
+    db_user = db.query(User).filter(User.BenutzerID == user_id).first()
     if db_user is None:
         raise HTTPException(status_code=404, detail="User not found")
     db.delete(db_user)
