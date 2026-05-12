@@ -15,6 +15,10 @@ class Task(Base):
     Ort = Column(String(255))
     Koordinaten = Column(String(255))
     Notiz = Column(TEXT)
+    KategorieID = Column(Integer, ForeignKey(Category.KategorieID))
+    PrioritaetID = Column(Integer, ForeignKey(Priority.PrioritaetID))
+    FortschrittID = Column(Integer, ForeignKey(Progress.FortschrittID))
+    BenutzerID = Column(Integer, ForeignKey(User.BenutzerID))
 
     def __repr__(self):
         return f"<Aufgaben {self.Titel}>"

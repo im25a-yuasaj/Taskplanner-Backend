@@ -8,8 +8,8 @@ from typing import List
 
 router = APIRouter(prefix="/task", tags=["task"])
 
-@router.get('/')
-def get_all_tasks(db: Session = Depends(get_db), response_model=List[TaskSchema]):
+@router.get('/', response_model=List[TaskSchema])
+def get_all_tasks(db: Session = Depends(get_db)):
     db_tasks = db.query(Task).all()
     return db_tasks
 
@@ -29,8 +29,21 @@ def create_user(user: CreateTaskSchema, db: Session = Depends(get_db)):
         Ort=user.Ort,
         Koordinaten=user.Koordinaten,
         Notiz=user.Notiz,
+        KategorieID=user.KategorieID,
+        PrioritaetID=user.PrioritaetID,
+        FortschrittID=user.FortschrittID,
+        BenutzerID=user.BenutzerID,
     )
     db.add(db_user)
     db.commit()
     db.refresh(db_user)
+    return db_user
+
+@router.delete('/delete-user/{task_id}', response_model=TaskSchema)
+def delete_user(task_id: int, db: Session = Depends(get_db)):
+    db_user = db.query(Task).filter(Task.BenutzerID == task_id).first()
+    if db_user is None:
+        raise HTTPException(status_code=404, detail="User not found")
+    db.delete(db_user)
+    db.commit()
     return db_user
