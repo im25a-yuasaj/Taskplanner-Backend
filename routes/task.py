@@ -39,6 +39,33 @@ def create_task(user: CreateTaskSchema, db: Session = Depends(get_db)):
     db.refresh(db_user)
     return db_user
 
+@router.post('/update-task/{task_id}/{new_name}', response_model=TaskSchema)
+def update_username(task_id: int, new_name: str, db: Session = Depends(get_db)):
+    db_user = db.query(Task).filter(Task.AufgabeID == task_id).first()
+    if db_user is None:
+        raise HTTPException(status_code=404, detail="User not found")
+    db_user.Titel = new_name
+    db.commit()
+    return db_user
+
+@router.post('/update-task-status/{task_id}/{new_status}', response_model=TaskSchema)
+def update_username(task_id: int, new_status: int, db: Session = Depends(get_db)):
+    db_user = db.query(Task).filter(Task.AufgabeID == task_id).first()
+    if db_user is None:
+        raise HTTPException(status_code=404, detail="User not found")
+    db_user.FortschrittID = new_status
+    db.commit()
+    return db_user
+
+@router.post('/update-task-note/{task_id}/{new_note}', response_model=TaskSchema)
+def update_task_note(task_id: int, new_note: str, db: Session = Depends(get_db)):
+    db_user = db.query(Task).filter(Task.AufgabeID == task_id).first()
+    if db_user is None:
+        raise HTTPException(status_code=404, detail="User not found")
+    db_user.Notiz = new_note
+    db.commit()
+    return db_user
+
 @router.delete('/delete-user/{task_id}', response_model=TaskSchema)
 def delete_task(task_id: int, db: Session = Depends(get_db)):
     db_task = db.query(Task).filter(Task.BenutzerID == task_id).first()

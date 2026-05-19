@@ -12,8 +12,8 @@ def get_all_priorities(db: Session = Depends(get_db)):
     return db.query(Priority).all()
 
 
-@router.get('/{Prioritaet_id}', response_model=PrioritySchema)
-def get_category_by_id(prioritaet_id: int, db: Session = Depends(get_db)):
+@router.get('/{prioritaet_id}', response_model=PrioritySchema)
+def get_priority_by_id(prioritaet_id: int, db: Session = Depends(get_db)):
     db_priority = (
         db.query(Priority)
         .filter(Priority.PrioritaetID == prioritaet_id)
