@@ -25,3 +25,16 @@ class Task(Base):
 
     def __repr__(self):
         return f"<Aufgaben {self.Titel}>"
+
+class TaskViewModel(Base):
+    __tablename__ = "aufgaben_uebersicht"
+
+    AufgabeID = Column(Integer, primary_key=True)
+    Titel = Column(String(255))
+    Ort = Column(String(255))
+    Notiz = Column(TEXT)
+    Kategorie = Column(String(255))
+    Prioritaet = Column(String(255))
+    Fortschritt = Column(String(255))
+    BenutzerName = Column(String(255))
+    Material = Column(String(255))

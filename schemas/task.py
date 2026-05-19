@@ -34,3 +34,14 @@ class CreateTaskSchema(BaseModel):
     PrioritaetID: int
     FortschrittID: int
     BenutzerID: int
+
+class TaskViewSchema(BaseModel):
+    AufgabeID: int
+    Titel: str
+    Ort: str
+    Notiz: str
+    Kategorie: str
+    Prioritaet: str
+    Fortschritt: str
+    BenutzerName: str
+    Material: str

@@ -4,8 +4,8 @@ routes for task table
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from database.database import get_db
-from models.task import Task
-from schemas.task import TaskSchema, CreateTaskSchema
+from models.task import Task, TaskViewModel
+from schemas.task import TaskSchema, CreateTaskSchema, TaskViewSchema
 from typing import List
 
 
@@ -15,6 +15,10 @@ router = APIRouter(prefix="/task", tags=["task"])
 def get_all_tasks(db: Session = Depends(get_db)):
     db_tasks = db.query(Task).all()
     return db_tasks
+@router.get('/get-task-views', response_model=List[TaskViewSchema])
+def get_task_views(db: Session = Depends(get_db)):
+    db_task_view = db.query(TaskViewModel).all()
+    return db_task_view
 
 @router.get('/{task_id}', response_model=TaskSchema)
 def get_task_by_id(task_id: int, db: Session = Depends(get_db)):
@@ -22,6 +26,7 @@ def get_task_by_id(task_id: int, db: Session = Depends(get_db)):
     if db_task is None:
         raise HTTPException(status_code=404, detail="task not found")
     return db_task
+
 
 @router.post('/create-task', response_model=TaskSchema)
 def create_task(task: CreateTaskSchema, db: Session = Depends(get_db)):
