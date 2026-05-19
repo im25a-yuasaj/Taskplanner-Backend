@@ -8,11 +8,11 @@ from typing import List
 router = APIRouter(prefix='/task-material', tags=['task-material'])
 
 @router.get('/', response_model=List[TaskMaterialSchema])
-def get_all(db: Session = Depends(get_db)):
+def get_all_taskmaterials(db: Session = Depends(get_db)):
     return db.query(TaskMaterial).all()
 
 @router.get('/{aufgabe_id}/{material_id}', response_model=TaskMaterialSchema)
-def get_by_id(aufgabe_id: int, material_id: int, db: Session = Depends(get_db)):
+def get_taskmaterial_by_id(aufgabe_id: int, material_id: int, db: Session = Depends(get_db)):
     db_entry = db.query(TaskMaterial).filter(
         TaskMaterial.AufgabeID == aufgabe_id,
         TaskMaterial.MaterialID == material_id
@@ -22,7 +22,7 @@ def get_by_id(aufgabe_id: int, material_id: int, db: Session = Depends(get_db)):
     return db_entry
 
 @router.post('/create/{aufgabe_id}/{material_id}', response_model=TaskMaterialSchema)
-def create(aufgabe_id: int, material_id: int, body: CreateTaskMaterialSchema, db: Session = Depends(get_db)):
+def create_taskmaterial(aufgabe_id: int, material_id: int, body: CreateTaskMaterialSchema, db: Session = Depends(get_db)):
     db_entry = TaskMaterial(
         AufgabeID=aufgabe_id,
         MaterialID=material_id,
@@ -34,7 +34,7 @@ def create(aufgabe_id: int, material_id: int, body: CreateTaskMaterialSchema, db
     return db_entry
 
 @router.delete('/delete/{aufgabe_id}/{material_id}', response_model=TaskMaterialSchema)
-def delete(aufgabe_id: int, material_id: int, db: Session = Depends(get_db)):
+def delete_taskmaterial(aufgabe_id: int, material_id: int, db: Session = Depends(get_db)):
     db_entry = db.query(TaskMaterial).filter(
         TaskMaterial.AufgabeID == aufgabe_id,
         TaskMaterial.MaterialID == material_id
