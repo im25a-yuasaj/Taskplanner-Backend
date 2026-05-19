@@ -1,3 +1,6 @@
+'''
+model for tasks
+'''
 from sqlalchemy import Column, Integer, String, DATETIME, TEXT, ForeignKey
 from database.database import Base
 from models.category import Category

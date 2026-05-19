@@ -1,3 +1,6 @@
+'''
+model for files
+'''
 from sqlalchemy import Column, Integer, String, BLOB, ForeignKey
 from database.database import Base
 from models.task import Task
