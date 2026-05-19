@@ -1,7 +1,13 @@
+'''
+This file contains the TaskSchema and CreateTaskSchema classes.
+'''
 from pydantic import BaseModel
 import datetime as dt
 
 class TaskSchema(BaseModel):
+    '''
+    This is the schema for the task.
+    '''
     AufgabeID: int
     Titel: str
     Beginn: dt.datetime
@@ -15,6 +21,9 @@ class TaskSchema(BaseModel):
     BenutzerID: int
 
 class CreateTaskSchema(BaseModel):
+    '''
+    This schema is used for adding a new task to the database.
+    '''
     Titel: str
     Beginn: dt.datetime
     Ende: dt.datetime

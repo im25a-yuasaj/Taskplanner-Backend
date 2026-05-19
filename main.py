@@ -1,7 +1,9 @@
+'''
+In the main.py file, we have connected all the routes to the FastAPI application.
+'''
 from fastapi import FastAPI
 from routes import user, task, category, priority, progress, material, file
 app = FastAPI()
-
 app.include_router(user.router)
 app.include_router(task.router)
 app.include_router(category.router)
