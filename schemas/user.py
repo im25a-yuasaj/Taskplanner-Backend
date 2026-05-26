@@ -19,3 +19,16 @@ class CreateUserSchema(BaseModel):
     '''
     BenutzerName: str
     BenutzerPWD: str
+
+class AufgabeSchema(BaseModel):
+    AufgabeID: int
+    Titel: str
+    Ort: str | None
+    Notiz: str | None
+    Kategorie: str | None
+    Prioritaet: str | None
+    Fortschritt: str | None
+    BenutzerName: str
+    Material: str | None
+
+    model_config = ConfigDict(from_attributes=True)

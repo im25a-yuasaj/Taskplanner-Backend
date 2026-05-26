@@ -5,8 +5,9 @@ from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from database.database import get_db
 from models.user import User
-from schemas.user import UserSchema, CreateUserSchema
+from schemas.user import UserSchema, CreateUserSchema, AufgabeSchema
 from typing import List
+from sqlalchemy import text
 
 router = APIRouter(prefix="/user", tags=["user"])
 
@@ -59,3 +60,11 @@ def delete_user(user_id: int, db: Session = Depends(get_db)):
     db.delete(db_user)
     db.commit()
     return db_user
+
+@router.get('/sp/get-aufgaben/{user_id}', response_model=List[AufgabeSchema])
+def get_benutzer_aufgaben(user_id: int, db: Session = Depends(get_db)):
+    result = db.execute(text('CALL GetBenutzerAufgaben(:id)'), {'id': user_id})
+    rows = result.mappings().all()
+    if not rows:
+        raise HTTPException(status_code=404, detail='No tasks found for user')
+    return rows
