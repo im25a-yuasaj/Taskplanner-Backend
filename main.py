@@ -3,8 +3,19 @@ In the main.py file, we have connected all the routes to the FastAPI application
 '''
 
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 from routes import user, task, category, priority, progress, material, taskmaterial, file
+
 app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["0.0.0.0:8000", 'https://*.vercel.app'],  # Allow all origins for development
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 app.include_router(user.router)
 app.include_router(task.router)
 app.include_router(category.router)

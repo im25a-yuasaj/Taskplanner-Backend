@@ -3,6 +3,7 @@ This file contains the TaskSchema and CreateTaskSchema classes.
 '''
 from pydantic import BaseModel
 import datetime as dt
+from typing import Optional
 
 class TaskSchema(BaseModel):
     '''
@@ -44,4 +45,4 @@ class TaskViewSchema(BaseModel):
     Prioritaet: str
     Fortschritt: str
     BenutzerName: str
-    Material: str
+    Material: Optional[str] = None

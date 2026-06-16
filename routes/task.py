@@ -76,7 +76,7 @@ def update_task_note(task_id: int, new_note: str, db: Session = Depends(get_db))
 
 @router.delete('/delete-task/{task_id}', response_model=TaskSchema)
 def delete_task(task_id: int, db: Session = Depends(get_db)):
-    db_task = db.query(Task).filter(Task.BenutzerID == task_id).first()
+    db_task = db.query(Task).filter(Task.AufgabeID == task_id).first()
     if db_task is None:
         raise HTTPException(status_code=404, detail="task not found")
     db.delete(db_task)
